@@ -1,0 +1,1227 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Digital Wallet App
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen flex flex-col">
+  <div class="flex flex-col md:flex-row flex-1 min-h-screen" id="app">
+   <!-- Sidebar -->
+   <aside class="bg-white w-full md:w-64 border-r border-gray-200 flex flex-col" id="sidebar">
+    <div class="flex items-center justify-center h-16 border-b border-gray-200 px-4">
+     <img alt="Digital Wallet logo, stylized letters DW in blue and white" class="h-8 w-8 mr-2" height="32" src="https://storage.googleapis.com/a1aa/image/2db52537-9dca-433a-d676-f02994b29407.jpg" width="32"/>
+     <h1 class="text-xl font-semibold text-blue-600">
+      Digital Wallet
+     </h1>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-2 space-y-1">
+     <button class="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 flex items-center space-x-3" data-page="dashboard">
+      <i class="fas fa-tachometer-alt w-5">
+      </i>
+      <span>
+       Dashboard
+      </span>
+     </button>
+     <button class="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 flex items-center space-x-3" data-page="transfer">
+      <i class="fas fa-exchange-alt w-5">
+      </i>
+      <span>
+       Transfer
+      </span>
+     </button>
+     <button class="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 flex items-center space-x-3" data-page="transactions">
+      <i class="fas fa-list-alt w-5">
+      </i>
+      <span>
+       Transactions
+      </span>
+     </button>
+     <button class="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 flex items-center space-x-3" data-page="bookings">
+      <i class="fas fa-calendar-check w-5">
+      </i>
+      <span>
+       Bookings
+      </span>
+     </button>
+     <button class="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 flex items-center space-x-3" data-page="billpayments">
+      <i class="fas fa-file-invoice-dollar w-5">
+      </i>
+      <span>
+       Bill Payments
+      </span>
+     </button>
+     <button class="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 flex items-center space-x-3" data-page="qrpayments">
+      <i class="fas fa-qrcode w-5">
+      </i>
+      <span>
+       QR Payments
+      </span>
+     </button>
+     <button class="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 flex items-center space-x-3" data-page="linkaccount">
+      <i class="fas fa-link w-5">
+      </i>
+      <span>
+       Link Account
+      </span>
+     </button>
+     <button class="w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 flex items-center space-x-3" data-page="settings">
+      <i class="fas fa-cog w-5">
+      </i>
+      <span>
+       Settings
+      </span>
+     </button>
+     <button class="w-full text-left px-3 py-2 rounded-md text-red-600 hover:bg-red-100 hover:text-red-700 flex items-center space-x-3 mt-6" id="logoutBtn">
+      <i class="fas fa-sign-out-alt w-5">
+      </i>
+      <span>
+       Logout
+      </span>
+     </button>
+    </nav>
+   </aside>
+   <!-- Main content -->
+   <main class="flex-1 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="flex items-center justify-between bg-white border-b border-gray-200 h-16 px-4">
+     <h2 class="text-xl font-semibold text-gray-800" id="pageTitle">
+      Welcome
+     </h2>
+     <div class="hidden text-gray-700 font-medium" id="userGreeting">
+     </div>
+    </header>
+    <!-- Content area -->
+    <section class="flex-1 overflow-y-auto p-6 bg-gray-50" id="contentArea">
+     <!-- Welcome Page -->
+     <section class="max-w-md mx-auto" id="welcomePage">
+      <h3 class="text-3xl font-bold text-center text-blue-600 mb-6">
+       Welcome to Digital Wallet
+      </h3>
+      <img alt="Illustration of a digital wallet with money and cards floating around, modern flat style" class="mx-auto mb-6 rounded-lg shadow-md" height="200" src="https://storage.googleapis.com/a1aa/image/527fc415-1530-4b15-adca-c486f454b14f.jpg" width="400"/>
+      <div class="flex justify-center space-x-4">
+       <button class="px-6 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition" id="loginBtn">
+        Login
+       </button>
+       <button class="px-6 py-3 border border-blue-600 text-blue-600 rounded-md font-semibold hover:bg-blue-100 transition" id="signupBtn">
+        Sign Up
+       </button>
+      </div>
+     </section>
+     <!-- Login Page -->
+     <section class="max-w-md mx-auto hidden" id="loginPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+       Login to Your Account
+      </h3>
+      <form class="space-y-4 bg-white p-6 rounded-lg shadow-md" id="loginForm">
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="loginEmail">
+         Email
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="loginEmail" name="email" placeholder="you@example.com" required="" type="email"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="loginPassword">
+         Password
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="loginPassword" name="password" placeholder="********" required="" type="password"/>
+       </div>
+       <button class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 transition" type="submit">
+        Login
+       </button>
+       <p class="text-center text-gray-600 mt-4">
+        Don't have an account?
+        <button class="text-blue-600 font-semibold hover:underline" id="toSignupFromLogin" type="button">
+         Sign Up
+        </button>
+       </p>
+      </form>
+     </section>
+     <!-- Signup Page -->
+     <section class="max-w-md mx-auto hidden" id="signupPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">
+       Create a New Account
+      </h3>
+      <form class="space-y-4 bg-white p-6 rounded-lg shadow-md" id="signupForm">
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="signupName">
+         Full Name
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="signupName" name="name" placeholder="John Doe" required="" type="text"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="signupEmail">
+         Email
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="signupEmail" name="email" placeholder="you@example.com" required="" type="email"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="signupPassword">
+         Password
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="signupPassword" name="password" placeholder="********" required="" type="password"/>
+       </div>
+       <button class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 transition" type="submit">
+        Sign Up
+       </button>
+       <p class="text-center text-gray-600 mt-4">
+        Already have an account?
+        <button class="text-blue-600 font-semibold hover:underline" id="toLoginFromSignup" type="button">
+         Login
+        </button>
+       </p>
+      </form>
+     </section>
+     <!-- Dashboard Page -->
+     <section class="hidden max-w-7xl mx-auto space-y-6" id="dashboardPage">
+      <h3 class="text-2xl font-semibold text-gray-800">
+       Dashboard
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+       <!-- Balance Card -->
+       <div aria-label="Current balance card" class="bg-white rounded-lg shadow p-6 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+         <h4 class="text-lg font-semibold text-gray-700">
+          Current Balance
+         </h4>
+         <i class="fas fa-wallet text-blue-600 text-xl">
+         </i>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">
+         $5,230.75
+        </p>
+        <p class="text-sm text-gray-500 mt-1">
+         As of today
+        </p>
+       </div>
+       <!-- Link Account Card -->
+       <div aria-label="Link bank account card" class="bg-white rounded-lg shadow p-6 flex flex-col justify-between">
+        <div class="flex items-center justify-between mb-4">
+         <h4 class="text-lg font-semibold text-gray-700">
+          Linked Accounts
+         </h4>
+         <i class="fas fa-link text-green-600 text-xl">
+         </i>
+        </div>
+        <ul class="text-gray-700 space-y-1">
+         <li>
+          Bank of America - ****1234
+         </li>
+         <li>
+          Chase - ****5678
+         </li>
+        </ul>
+        <button class="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition self-start" id="linkAccountBtn">
+         Link New Account
+        </button>
+       </div>
+       <!-- Recent Transactions Card -->
+       <div aria-label="Recent transactions card" class="bg-white rounded-lg shadow p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-4">
+         <h4 class="text-lg font-semibold text-gray-700">
+          Recent Transactions
+         </h4>
+         <button class="text-blue-600 hover:underline text-sm font-semibold" id="viewAllTransactionsBtn">
+          View All
+         </button>
+        </div>
+        <ul class="divide-y divide-gray-200 overflow-y-auto max-h-48">
+         <li class="py-2 flex justify-between items-center">
+          <div>
+           <p class="font-medium text-gray-800">
+            Starbucks
+           </p>
+           <p class="text-sm text-gray-500">
+            Apr 20, 2024
+           </p>
+          </div>
+          <p class="text-red-600 font-semibold">
+           -$5.25
+          </p>
+         </li>
+         <li class="py-2 flex justify-between items-center">
+          <div>
+           <p class="font-medium text-gray-800">
+            Salary
+           </p>
+           <p class="text-sm text-gray-500">
+            Apr 18, 2024
+           </p>
+          </div>
+          <p class="text-green-600 font-semibold">
+           +$3,000.00
+          </p>
+         </li>
+         <li class="py-2 flex justify-between items-center">
+          <div>
+           <p class="font-medium text-gray-800">
+            Electricity Bill
+           </p>
+           <p class="text-sm text-gray-500">
+            Apr 15, 2024
+           </p>
+          </div>
+          <p class="text-red-600 font-semibold">
+           -$120.00
+          </p>
+         </li>
+         <li class="py-2 flex justify-between items-center">
+          <div>
+           <p class="font-medium text-gray-800">
+            Amazon
+           </p>
+           <p class="text-sm text-gray-500">
+            Apr 14, 2024
+           </p>
+          </div>
+          <p class="text-red-600 font-semibold">
+           -$45.99
+          </p>
+         </li>
+         <li class="py-2 flex justify-between items-center">
+          <div>
+           <p class="font-medium text-gray-800">
+            Netflix
+           </p>
+           <p class="text-sm text-gray-500">
+            Apr 10, 2024
+           </p>
+          </div>
+          <p class="text-red-600 font-semibold">
+           -$15.99
+          </p>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </section>
+     <!-- Transfer Page -->
+     <section class="hidden max-w-md mx-auto" id="transferPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+       Transfer Funds
+      </h3>
+      <form class="bg-white p-6 rounded-lg shadow-md space-y-4" id="transferForm">
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="transferFrom">
+         From Account
+        </label>
+        <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="transferFrom" name="transferFrom" required="">
+         <option disabled="" selected="" value="">
+          Select account
+         </option>
+         <option value="boa">
+          Bank of America - ****1234
+         </option>
+         <option value="chase">
+          Chase - ****5678
+         </option>
+        </select>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="transferTo">
+         To Account Number
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="transferTo" name="transferTo" pattern="[0-9]{10,18}" placeholder="1234567890" required="" title="Enter a valid account number (10-18 digits)" type="text"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="transferAmount">
+         Amount
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="transferAmount" min="1" name="transferAmount" placeholder="100.00" required="" step="0.01" type="number"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="transferNote">
+         Note (optional)
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="transferNote" name="transferNote" placeholder="For rent, groceries, etc." type="text"/>
+       </div>
+       <button class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 transition" type="submit">
+        Send Transfer
+       </button>
+      </form>
+     </section>
+     <!-- Transactions Page -->
+     <section class="hidden max-w-4xl mx-auto" id="transactionsPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+       Transaction History
+      </h3>
+      <div class="bg-white rounded-lg shadow overflow-x-auto">
+       <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+         <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Date
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Description
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Type
+          </th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Amount
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Status
+          </th>
+         </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+         <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           2024-04-20
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Starbucks Coffee
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Debit
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-red-600">
+           -$5.25
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Completed
+          </td>
+         </tr>
+         <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           2024-04-18
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Salary Deposit
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Credit
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-green-600">
+           +$3,000.00
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Completed
+          </td>
+         </tr>
+         <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           2024-04-15
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Electricity Bill Payment
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Debit
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-red-600">
+           -$120.00
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Completed
+          </td>
+         </tr>
+         <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           2024-04-14
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Amazon Purchase
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Debit
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-red-600">
+           -$45.99
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Completed
+          </td>
+         </tr>
+         <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           2024-04-10
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Netflix Subscription
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Debit
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-red-600">
+           -$15.99
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Completed
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <!-- Bookings Page -->
+     <section class="hidden max-w-4xl mx-auto" id="bookingsPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+       Bookings
+      </h3>
+      <div class="bg-white rounded-lg shadow overflow-x-auto">
+       <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+         <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Booking ID
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Service
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Date
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Status
+          </th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" scope="col">
+           Amount
+          </th>
+         </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+         <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           BK-1001
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Hotel Reservation
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           2024-05-01
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">
+           Confirmed
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700">
+           $350.00
+          </td>
+         </tr>
+         <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           BK-1002
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Flight Ticket
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           2024-06-15
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600 font-semibold">
+           Pending
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700">
+           $450.00
+          </td>
+         </tr>
+         <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           BK-1003
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           Car Rental
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+           2024-07-10
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">
+           Cancelled
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700">
+           $120.00
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <!-- Bill Payments Page -->
+     <section class="hidden max-w-md mx-auto" id="billpaymentsPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+       Bill Payments
+      </h3>
+      <form class="bg-white p-6 rounded-lg shadow-md space-y-4" id="billPaymentForm">
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="billType">
+         Bill Type
+        </label>
+        <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="billType" name="billType" required="">
+         <option disabled="" selected="" value="">
+          Select bill type
+         </option>
+         <option value="electricity">
+          Electricity
+         </option>
+         <option value="water">
+          Water
+         </option>
+         <option value="internet">
+          Internet
+         </option>
+         <option value="phone">
+          Phone
+         </option>
+         <option value="gas">
+          Gas
+         </option>
+        </select>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="billAccountNumber">
+         Account Number
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="billAccountNumber" name="billAccountNumber" placeholder="Enter your account number" required="" type="text"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="billAmount">
+         Amount
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" id="billAmount" min="1" name="billAmount" placeholder="100.00" required="" step="0.01" type="number"/>
+       </div>
+       <button class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 transition" type="submit">
+        Pay Bill
+       </button>
+      </form>
+     </section>
+     <!-- QR Payments Page -->
+     <section class="hidden max-w-md mx-auto" id="qrpaymentsPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+       QR Payments
+      </h3>
+      <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center space-y-6">
+       <img alt="Placeholder image of a QR code for payments, black and white square pattern" class="w-48 h-48" height="200" src="https://storage.googleapis.com/a1aa/image/fa63c9f0-0f5c-4a41-969d-c597b47269e5.jpg" width="200"/>
+       <p class="text-gray-700 text-center">
+        Scan this QR code with your mobile device to make a payment.
+       </p>
+       <button class="px-6 py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition" id="scanQrBtn">
+        Scan QR Code
+       </button>
+      </div>
+     </section>
+     <!-- Link Account Page -->
+     <section class="hidden max-w-md mx-auto" id="linkaccountPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+       Link New Account
+      </h3>
+      <form class="bg-white p-6 rounded-lg shadow-md space-y-4" id="linkAccountForm">
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="bankName">
+         Bank Name
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="bankName" name="bankName" placeholder="Bank of America" required="" type="text"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="accountNumber">
+         Account Number
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="accountNumber" name="accountNumber" pattern="[0-9]{10,18}" placeholder="1234567890" required="" title="Enter a valid account number (10-18 digits)" type="text"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="accountType">
+         Account Type
+        </label>
+        <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="accountType" name="accountType" required="">
+         <option disabled="" selected="" value="">
+          Select account type
+         </option>
+         <option value="checking">
+          Checking
+         </option>
+         <option value="savings">
+          Savings
+         </option>
+        </select>
+       </div>
+       <button class="w-full bg-green-600 text-white py-3 rounded-md font-semibold hover:bg-green-700 transition" type="submit">
+        Link Account
+       </button>
+      </form>
+     </section>
+     <!-- Settings Page -->
+     <section class="hidden max-w-md mx-auto" id="settingsPage">
+      <h3 class="text-2xl font-semibold text-gray-800 mb-6">
+       Settings
+      </h3>
+      <form class="bg-white p-6 rounded-lg shadow-md space-y-4" id="settingsForm">
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="userName">
+         Full Name
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" id="userName" name="userName" placeholder="John Doe" required="" type="text"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="userEmail">
+         Email
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" id="userEmail" name="userEmail" placeholder="you@example.com" required="" type="email"/>
+       </div>
+       <div>
+        <label class="block text-gray-700 font-medium mb-1" for="userPassword">
+         Change Password
+        </label>
+        <input class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" id="userPassword" name="userPassword" placeholder="New password" type="password"/>
+       </div>
+       <button class="w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition" type="submit">
+        Save Settings
+       </button>
+      </form>
+     </section>
+    </section>
+   </main>
+  </div>
+  <script>
+   (() => {
+      // Simple in-memory "backend" simulation
+      const users = [
+        {
+          id: 1,
+          name: "John Doe",
+          email: "john@example.com",
+          password: "password123",
+          linkedAccounts: [
+            { bank: "Bank of America", accountNumber: "****1234", type: "checking" },
+            { bank: "Chase", accountNumber: "****5678", type: "savings" },
+          ],
+          balance: 5230.75,
+          transactions: [
+            {
+              id: 1,
+              date: "2024-04-20",
+              description: "Starbucks Coffee",
+              type: "debit",
+              amount: 5.25,
+              status: "Completed",
+            },
+            {
+              id: 2,
+              date: "2024-04-18",
+              description: "Salary Deposit",
+              type: "credit",
+              amount: 3000.0,
+              status: "Completed",
+            },
+            {
+              id: 3,
+              date: "2024-04-15",
+              description: "Electricity Bill Payment",
+              type: "debit",
+              amount: 120.0,
+              status: "Completed",
+            },
+            {
+              id: 4,
+              date: "2024-04-14",
+              description: "Amazon Purchase",
+              type: "debit",
+              amount: 45.99,
+              status: "Completed",
+            },
+            {
+              id: 5,
+              date: "2024-04-10",
+              description: "Netflix Subscription",
+              type: "debit",
+              amount: 15.99,
+              status: "Completed",
+            },
+          ],
+          bookings: [
+            {
+              id: "BK-1001",
+              service: "Hotel Reservation",
+              date: "2024-05-01",
+              status: "Confirmed",
+              amount: 350.0,
+            },
+            {
+              id: "BK-1002",
+              service: "Flight Ticket",
+              date: "2024-06-15",
+              status: "Pending",
+              amount: 450.0,
+            },
+            {
+              id: "BK-1003",
+              service: "Car Rental",
+              date: "2024-07-10",
+              status: "Cancelled",
+              amount: 120.0,
+            },
+          ],
+        },
+      ];
+
+      let currentUser = null;
+
+      // Elements
+      const pages = {
+        welcome: document.getElementById("welcomePage"),
+        login: document.getElementById("loginPage"),
+        signup: document.getElementById("signupPage"),
+        dashboard: document.getElementById("dashboardPage"),
+        transfer: document.getElementById("transferPage"),
+        transactions: document.getElementById("transactionsPage"),
+        bookings: document.getElementById("bookingsPage"),
+        billpayments: document.getElementById("billpaymentsPage"),
+        qrpayments: document.getElementById("qrpaymentsPage"),
+        linkaccount: document.getElementById("linkaccountPage"),
+        settings: document.getElementById("settingsPage"),
+      };
+
+      const pageTitle = document.getElementById("pageTitle");
+      const userGreeting = document.getElementById("userGreeting");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const sidebarButtons = document.querySelectorAll("aside nav button[data-page]");
+      const contentArea = document.getElementById("contentArea");
+
+      // Show page helper
+      function showPage(pageKey) {
+        Object.entries(pages).forEach(([key, el]) => {
+          if (key === pageKey) {
+            el.classList.remove("hidden");
+          } else {
+            el.classList.add("hidden");
+          }
+        });
+        pageTitle.textContent =
+          pageKey.charAt(0).toUpperCase() + pageKey.slice(1).replace(/([A-Z])/g, " $1");
+        if (currentUser) {
+          userGreeting.textContent = `Hello, ${currentUser.name}`;
+          userGreeting.classList.remove("hidden");
+          logoutBtn.classList.remove("hidden");
+        } else {
+          userGreeting.classList.add("hidden");
+          logoutBtn.classList.add("hidden");
+        }
+      }
+
+      // Initial state
+      showPage("welcome");
+
+      // Navigation handlers
+      sidebarButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (!currentUser) {
+            alert("Please login to access this section.");
+            showPage("login");
+            return;
+          }
+          const page = btn.getAttribute("data-page");
+          if (page === "dashboard") {
+            updateDashboard();
+          }
+          if (page === "transactions") {
+            updateTransactions();
+          }
+          if (page === "bookings") {
+            updateBookings();
+          }
+          if (page === "linkaccount") {
+            resetLinkAccountForm();
+          }
+          if (page === "settings") {
+            populateSettingsForm();
+          }
+          showPage(page);
+        });
+      });
+
+      // Welcome page buttons
+      document.getElementById("loginBtn").addEventListener("click", () => {
+        showPage("login");
+      });
+      document.getElementById("signupBtn").addEventListener("click", () => {
+        showPage("signup");
+      });
+
+      // Login page links
+      document.getElementById("toSignupFromLogin").addEventListener("click", () => {
+        showPage("signup");
+      });
+      document.getElementById("toLoginFromSignup").addEventListener("click", () => {
+        showPage("login");
+      });
+
+      // Login form submit
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = e.target.email.value.trim().toLowerCase();
+        const password = e.target.password.value;
+        const user = users.find(
+          (u) => u.email.toLowerCase() === email && u.password === password
+        );
+        if (user) {
+          currentUser = user;
+          e.target.reset();
+          updateDashboard();
+          showPage("dashboard");
+        } else {
+          alert("Invalid email or password.");
+        }
+      });
+
+      // Signup form submit
+      document.getElementById("signupForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = e.target.name.value.trim();
+        const email = e.target.email.value.trim().toLowerCase();
+        const password = e.target.password.value;
+        if (users.some((u) => u.email.toLowerCase() === email)) {
+          alert("Email already registered.");
+          return;
+        }
+        const newUser = {
+          id: users.length + 1,
+          name,
+          email,
+          password,
+          linkedAccounts: [],
+          balance: 0,
+          transactions: [],
+          bookings: [],
+        };
+        users.push(newUser);
+        currentUser = newUser;
+        e.target.reset();
+        updateDashboard();
+        showPage("dashboard");
+      });
+
+      // Logout
+      logoutBtn.addEventListener("click", () => {
+        if (confirm("Are you sure you want to logout?")) {
+          currentUser = null;
+          showPage("welcome");
+        }
+      });
+
+      // Update dashboard data
+      function updateDashboard() {
+        if (!currentUser) return;
+        // Update balance card
+        const balanceCard = pages.dashboard.querySelector(
+          "div[aria-label='Current balance card'] p.text-3xl"
+        );
+        balanceCard.textContent = `$${currentUser.balance.toFixed(2)}`;
+
+        // Update linked accounts list
+        const linkedAccountsList = pages.dashboard.querySelector(
+          "div[aria-label='Link bank account card'] ul"
+        );
+        linkedAccountsList.innerHTML = "";
+        currentUser.linkedAccounts.forEach((acc) => {
+          const li = document.createElement("li");
+          li.textContent = `${acc.bank} - ${acc.accountNumber}`;
+          linkedAccountsList.appendChild(li);
+        });
+
+        // Update recent transactions list
+        const recentTransactionsList = pages.dashboard.querySelector(
+          "div[aria-label='Recent transactions card'] ul"
+        );
+        recentTransactionsList.innerHTML = "";
+        currentUser.transactions
+          .slice(0, 5)
+          .forEach((tx) => {
+            const li = document.createElement("li");
+            li.className = "py-2 flex justify-between items-center";
+            const div = document.createElement("div");
+            const pDesc = document.createElement("p");
+            pDesc.className = "font-medium text-gray-800";
+            pDesc.textContent = tx.description;
+            const pDate = document.createElement("p");
+            pDate.className = "text-sm text-gray-500";
+            pDate.textContent = new Date(tx.date).toLocaleDateString();
+            div.appendChild(pDesc);
+            div.appendChild(pDate);
+            const pAmount = document.createElement("p");
+            pAmount.className =
+              "font-semibold " + (tx.type === "debit" ? "text-red-600" : "text-green-600");
+            pAmount.textContent =
+              (tx.type === "debit" ? "-$" : "+$") + tx.amount.toFixed(2);
+            li.appendChild(div);
+            li.appendChild(pAmount);
+            recentTransactionsList.appendChild(li);
+          });
+      }
+
+      // Update transactions page table
+      function updateTransactions() {
+        if (!currentUser) return;
+        const tbody = pages.transactions.querySelector("tbody");
+        tbody.innerHTML = "";
+        currentUser.transactions.forEach((tx) => {
+          const tr = document.createElement("tr");
+          tr.className = "bg-white divide-y divide-gray-200";
+
+          const tdDate = document.createElement("td");
+          tdDate.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700";
+          tdDate.textContent = tx.date;
+
+          const tdDesc = document.createElement("td");
+          tdDesc.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700";
+          tdDesc.textContent = tx.description;
+
+          const tdType = document.createElement("td");
+          tdType.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700";
+          tdType.textContent = tx.type.charAt(0).toUpperCase() + tx.type.slice(1);
+
+          const tdAmount = document.createElement("td");
+          tdAmount.className =
+            "px-6 py-4 whitespace-nowrap text-sm text-right " +
+            (tx.type === "debit" ? "text-red-600" : "text-green-600");
+          tdAmount.textContent =
+            (tx.type === "debit" ? "-$" : "+$") + tx.amount.toFixed(2);
+
+          const tdStatus = document.createElement("td");
+          tdStatus.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700";
+          tdStatus.textContent = tx.status;
+
+          tr.appendChild(tdDate);
+          tr.appendChild(tdDesc);
+          tr.appendChild(tdType);
+          tr.appendChild(tdAmount);
+          tr.appendChild(tdStatus);
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Update bookings page table
+      function updateBookings() {
+        if (!currentUser) return;
+        const tbody = pages.bookings.querySelector("tbody");
+        tbody.innerHTML = "";
+        currentUser.bookings.forEach((bk) => {
+          const tr = document.createElement("tr");
+          tr.className = "bg-white divide-y divide-gray-200";
+
+          const tdId = document.createElement("td");
+          tdId.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700";
+          tdId.textContent = bk.id;
+
+          const tdService = document.createElement("td");
+          tdService.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700";
+          tdService.textContent = bk.service;
+
+          const tdDate = document.createElement("td");
+          tdDate.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-700";
+          tdDate.textContent = bk.date;
+
+          const tdStatus = document.createElement("td");
+          tdStatus.className = "px-6 py-4 whitespace-nowrap text-sm font-semibold";
+          if (bk.status === "Confirmed") {
+            tdStatus.classList.add("text-green-600");
+          } else if (bk.status === "Pending") {
+            tdStatus.classList.add("text-yellow-600");
+          } else if (bk.status === "Cancelled") {
+            tdStatus.classList.add("text-red-600");
+          }
+          tdStatus.textContent = bk.status;
+
+          const tdAmount = document.createElement("td");
+          tdAmount.className = "px-6 py-4 whitespace-nowrap text-sm text-right text-gray-700";
+          tdAmount.textContent = `$${bk.amount.toFixed(2)}`;
+
+          tr.appendChild(tdId);
+          tr.appendChild(tdService);
+          tr.appendChild(tdDate);
+          tr.appendChild(tdStatus);
+          tr.appendChild(tdAmount);
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Reset Link Account form
+      function resetLinkAccountForm() {
+        const form = document.getElementById("linkAccountForm");
+        form.reset();
+      }
+
+      // Populate Settings form
+      function populateSettingsForm() {
+        if (!currentUser) return;
+        const form = document.getElementById("settingsForm");
+        form.userName.value = currentUser.name;
+        form.userEmail.value = currentUser.email;
+        form.userPassword.value = "";
+      }
+
+      // Transfer form submit
+      document.getElementById("transferForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!currentUser) return alert("Please login first.");
+        const fromAccount = e.target.transferFrom.value;
+        const toAccount = e.target.transferTo.value.trim();
+        const amount = parseFloat(e.target.transferAmount.value);
+        const note = e.target.transferNote.value.trim();
+
+        if (!fromAccount || !toAccount || isNaN(amount) || amount <= 0) {
+          alert("Please fill all required fields correctly.");
+          return;
+        }
+
+        if (amount > currentUser.balance) {
+          alert("Insufficient balance.");
+          return;
+        }
+
+        // Deduct from balance
+        currentUser.balance -= amount;
+
+        // Add transaction record
+        currentUser.transactions.unshift({
+          id: currentUser.transactions.length + 1,
+          date: new Date().toISOString().split("T")[0],
+          description: `Transfer to ${toAccount}` + (note ? ` (${note})` : ""),
+          type: "debit",
+          amount: amount,
+          status: "Completed",
+        });
+
+        alert("Transfer successful.");
+        e.target.reset();
+        updateDashboard();
+        showPage("dashboard");
+      });
+
+      // Bill payment form submit
+      document.getElementById("billPaymentForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!currentUser) return alert("Please login first.");
+        const billType = e.target.billType.value;
+        const accountNumber = e.target.billAccountNumber.value.trim();
+        const amount = parseFloat(e.target.billAmount.value);
+
+        if (!billType || !accountNumber || isNaN(amount) || amount <= 0) {
+          alert("Please fill all required fields correctly.");
+          return;
+        }
+
+        if (amount > currentUser.balance) {
+          alert("Insufficient balance.");
+          return;
+        }
+
+        currentUser.balance -= amount;
+
+        currentUser.transactions.unshift({
+          id: currentUser.transactions.length + 1,
+          date: new Date().toISOString().split("T")[0],
+          description: `${billType.charAt(0).toUpperCase() + billType.slice(1)} Bill Payment`,
+          type: "debit",
+          amount: amount,
+          status: "Completed",
+        });
+
+        alert("Bill payment successful.");
+        e.target.reset();
+        updateDashboard();
+        showPage("dashboard");
+      });
+
+      // Link account form submit
+      document.getElementById("linkAccountForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!currentUser) return alert("Please login first.");
+        const bankName = e.target.bankName.value.trim();
+        const accountNumber = e.target.accountNumber.value.trim();
+        const accountType = e.target.accountType.value;
+
+        if (!bankName || !accountNumber || !accountType) {
+          alert("Please fill all required fields.");
+          return;
+        }
+
+        // Mask account number for display
+        const maskedAccountNumber =
+          "****" + accountNumber.slice(-4);
+
+        currentUser.linkedAccounts.push({
+          bank: bankName,
+          accountNumber: maskedAccountNumber,
+          type: accountType,
+        });
+
+        alert("Account linked successfully.");
+        e.target.reset();
+        updateDashboard();
+        showPage("dashboard");
+      });
+
+      // Settings form submit
+      document.getElementById("settingsForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!currentUser) return alert("Please login first.");
+        const name = e.target.userName.value.trim();
+        const email = e.target.userEmail.value.trim().toLowerCase();
+        const password = e.target.userPassword.value;
+
+        if (!name || !email) {
+          alert("Name and email are required.");
+          return;
+        }
+
+        // Check if email is taken by another user
+        if (
+          users.some(
+            (u) => u.email === email && u.id !== currentUser.id
+          )
+        ) {
+          alert("Email is already in use by another account.");
+          return;
+        }
+
+        currentUser.name = name;
+        currentUser.email = email;
+        if (password) {
+          currentUser.password = password;
+        }
+
+        alert("Settings updated successfully.");
+        populateSettingsForm();
+        userGreeting.textContent = `Hello, ${currentUser.name}`;
+      });
+
+      // View all transactions button on dashboard
+      document.getElementById("viewAllTransactionsBtn").addEventListener("click", () => {
+        if (!currentUser) {
+          alert("Please login first.");
+          return;
+        }
+        updateTransactions();
+        showPage("transactions");
+      });
+
+      // Link Account button on dashboard
+      document.getElementById("linkAccountBtn").addEventListener("click", () => {
+        if (!currentUser) {
+          alert("Please login first.");
+          return;
+        }
+        resetLinkAccountForm();
+        showPage("linkaccount");
+      });
+
+      // Scan QR button (dummy)
+      document.getElementById("scanQrBtn").addEventListener("click", () => {
+        alert("QR code scanning feature is not implemented in this demo.");
+      });
+    })();
+  </script>
+ </body>
+</html>
